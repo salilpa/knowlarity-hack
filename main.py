@@ -52,11 +52,16 @@ def upload():
             text = speech_to_text(file)
         except Exception:
             print "some error occured in processing"
-        print 'file name is : ' + file.filename
+
+        try:
+            print 'file name is : ' + file.filename
+        except Exception:
+            print "Not a valid file"
+
         print 'text that is recognized is ' + text
         return text
     else:
-        print "error"
+        print "no file object found"
         return "error"
 
 
