@@ -38,17 +38,30 @@ def speech_to_text(speech_wav):
 def text_to_action(text):
     phrase_ques = []
     phrase_ques.append("We couldn't recognize your voice")
-    phrase_ques.append("get my delivery time")
-    phrase_ques.append("get my order price")
-    phrase_ques.append("delivery address of my order")
+    phrase_ques.append("When is delivery time for pizza")
+    phrase_ques.append("What is the cost of Macbook")
+    phrase_ques.append("What is the delivery address for my order")
     phrase_ques.append("Hello world")
+    phrase_ques.append("When is next Bus for Goa?")
+    phrase_ques.append("Book an appointment for surgeon")
+    phrase_ques.append("What is the tracking status of my last order")
+    phrase_ques.append("Book a table for two for the evening")
+    phrase_ques.append("I have lost my credit card")
+    phrase_ques.append("I want a new credit card")
 
     phrase_ans = []
-    phrase_ans.append("We couldn't recognize your voice")
-    phrase_ans.append("Wednesday 14th of January")
-    phrase_ans.append("The price is 800 rupees")
-    phrase_ans.append("MG Road Bangalore")
-    phrase_ans.append("Hello indeed, good friend")
+    phrase_ans.append("We couldn't recognize your voice. Try again?")
+    phrase_ans.append("Delivery time is Wednesday 14th of January")
+    phrase_ans.append("Macbook costs 1.5 lakhs")
+    phrase_ans.append("Delivery address is MG Road Bangalore")
+    phrase_ans.append("Hello indeed, good friend. Why don't you ask me a question?")
+    phrase_ans.append("Next Bus is at 8 pm today")
+    phrase_ans.append("Your doctor appointment has been fixed.")
+    phrase_ans.append("Your order will be delivered tomorrow.")
+    phrase_ans.append("Your Booking has been confirmed.")
+    phrase_ans.append("Do not worry. Your credit card has been blocked")
+    phrase_ans.append("Your request for a new credit card has been placed.")
+
 
     inputString = text
     maxIndex = -1
