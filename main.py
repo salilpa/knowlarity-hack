@@ -37,6 +37,10 @@ def speech_to_text(speech_wav):
 
 def text_to_action(text):
     phrase_ques = []
+    # story of lost wallet and time spent on ivr
+    # options can be issue a new cheque book
+    # get a personal loan rates, home loan, or car loan, credit card, credit card statement
+    # bank statement, last 5 transactions.
     phrase_ques.append("We couldn't recognize your voice")
     phrase_ques.append("When is delivery time for pizza")
     phrase_ques.append("What is the cost of Macbook")
@@ -48,6 +52,12 @@ def text_to_action(text):
     phrase_ques.append("Book a table for two for the evening")
     phrase_ques.append("I have lost my credit card")
     phrase_ques.append("I want a new credit card")
+    phrase_ques.append("When was my Last transaction")
+    phrase_ques.append("What is my bank balance")
+    phrase_ques.append("what are the personal loan interest rates")
+    phrase_ques.append("when is personal loan due date")
+    phrase_ques.append("can you issue new cheque book")
+    phrase_ques.append("What is my current credit card statement")
 
     phrase_ans = []
     phrase_ans.append("We couldn't recognize your voice. Try again?")
@@ -61,6 +71,12 @@ def text_to_action(text):
     phrase_ans.append("Your Booking has been confirmed.")
     phrase_ans.append("Do not worry. Your credit card has been blocked")
     phrase_ans.append("Your request for a new credit card has been placed.")
+    phrase_ans.append("Last transaction was at knowlarity office")
+    phrase_ans.append("You are rich. You have a bank balance of 5 million dollars")
+    phrase_ans.append("Personal loan is cheaper now. it starts at 14%")
+    phrase_ans.append("Do not worry. it starts next month")
+    phrase_ans.append("Your new cheque book is on its way")
+    phrase_ans.append("You are in serious trouble. you have a credit card bill of 200 thousand dollars")
 
 
     inputString = text
