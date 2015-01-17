@@ -47,7 +47,12 @@ def upload():
     file = request.files['file']
     # Check if the file is one of the allowed types/extensions
     if file and allowed_file(file.filename):
-        return speech_to_text(file)
+        text = speech_to_text(file)
+        print text
+        return text
+    else:
+        print "error"
+        return "error"
 
 
 if __name__ == '__main__':
