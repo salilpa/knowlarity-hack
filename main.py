@@ -8,6 +8,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from werkzeug.utils import secure_filename
 import speech_recognition as sr
 import urllib
+import getcosine
 
 
 # Initialize the Flask application
@@ -26,16 +27,48 @@ def allowed_file(filename):
 
 def speech_to_text(speech_wav):
     r = sr.Recognizer()
-    with sr.WavFile(speech_wav) as source:              # use "test.wav" as the audio source
+    with sr.WavFile(speech_wav) as source:  # use "test.wav" as the audio source
         audio = r.record(source)
     try:
-        return r.recognize(audio)   # recognize speech using Google Speech Recognition
-    except LookupError:                                 # speech is unintelligible
+        return r.recognize(audio)  # recognize speech using Google Speech Recognition
+    except LookupError:  # speech is unintelligible
         return None
 
 
-def text_to_action(text, actions):
-    return None
+def text_to_action(text):
+    phrase_ques = []
+    phrase_ques.append("We couldn't recognize your voice")
+    phrase_ques.append("get my delivery time")
+    phrase_ques.append("get my order price")
+    phrase_ques.append("delivery address of my order")
+    phrase_ques.append("Hello world")
+
+    phrase_ans = []
+    phrase_ans.append("We couldn't recognize your voice")
+    phrase_ans.append("Wednesday 14th of January")
+    phrase_ans.append("The price is 800 rupees")
+    phrase_ans.append("MG Road Bangalore")
+    phrase_ans.append("Hello indeed, good friend")
+
+    inputString = text
+    maxIndex = -1
+    maxScore = 0
+    index = 0
+    for ques in phrase_ques:
+        score = getcosine.get_matching(ques, inputString)
+        if (score > maxScore):
+            maxScore = score
+            maxIndex = index
+        index = index + 1
+
+    if (maxIndex > -1):
+        print "Matched question is", phrase_ques[maxIndex]
+        print "Response is", phrase_ans[maxIndex]
+    else:
+        print "No Match found"
+        maxIndex = 0
+    return phrase_ans[maxIndex]
+
 
 # This route will show a form to perform an AJAX request
 # jQuery is loaded to execute the request and update the
@@ -61,7 +94,8 @@ def upload():
 
         try:
             print 'file name is : ' + file.filename
-            path_to_save = os.path.join(os.path.dirname(os.path.abspath(__file__)),app.config['UPLOAD_FOLDER'], file.filename)
+            path_to_save = os.path.join(os.path.dirname(os.path.abspath(__file__)), app.config['UPLOAD_FOLDER'],
+                                        file.filename)
             file.save(path_to_save)
         except Exception:
             print "Not a valid file"
@@ -71,12 +105,10 @@ def upload():
         else:
             print "No audio detected"
             text = "We couldn't recognize your voice"
-            return "We couldn't recognize your voice"
     else:
         print "no file object found"
         text = "We couldn't recognize your voice"
-        return "We couldn't recognize your voice"
-    return urllib.quote(text, '')
+    return urllib.quote(text_to_action(text), '')
 
 
 if __name__ == '__main__':
