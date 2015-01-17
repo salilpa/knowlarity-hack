@@ -7,6 +7,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 import speech_recognition as sr
+import urllib
 
 
 # Initialize the Flask application
@@ -30,7 +31,11 @@ def speech_to_text(speech_wav):
     try:
         return r.recognize(audio)   # recognize speech using Google Speech Recognition
     except LookupError:                                 # speech is unintelligible
-        return "Could not understand audio"
+        return None
+
+
+def text_to_action(text, actions):
+    return None
 
 # This route will show a form to perform an AJAX request
 # jQuery is loaded to execute the request and update the
@@ -47,8 +52,8 @@ def upload():
     print 'files uploaded ' + str(request.files)
     file = request.files['post_file']
     # Check if the file is one of the allowed types/extensions
+    text = ""
     if file:
-        text = ""
         try:
             text = speech_to_text(file)
         except Exception:
@@ -61,11 +66,17 @@ def upload():
         except Exception:
             print "Not a valid file"
 
-        print 'text that is recognized is ' + text
-        return text
+        if text:
+            print 'text that is recognized is ' + text
+        else:
+            print "No audio detected"
+            text = "We couldn't recognize your voice"
+            return "We couldn't recognize your voice"
     else:
         print "no file object found"
-        return "error"
+        text = "We couldn't recognize your voice"
+        return "We couldn't recognize your voice"
+    return urllib.quote(text, '')
 
 
 if __name__ == '__main__':
