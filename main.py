@@ -56,6 +56,8 @@ def upload():
 
         try:
             print 'file name is : ' + file.filename
+            path_to_save = os.path.join(os.path.dirname(os.path.abspath(__file__)),app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(path_to_save)
         except Exception:
             print "Not a valid file"
 
