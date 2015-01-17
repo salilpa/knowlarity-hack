@@ -48,7 +48,8 @@ def upload():
     # Check if the file is one of the allowed types/extensions
     if file and allowed_file(file.filename):
         text = speech_to_text(file)
-        print text
+        print 'file name is : ' + file.filename
+        print 'text that is recognized is ' + text
         return text
     else:
         print "error"
