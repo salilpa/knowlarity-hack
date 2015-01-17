@@ -44,7 +44,8 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
     # Get the name of the uploaded file
-    file = request.files['file']
+    print 'files uploaded ' + str(request.files)
+    file = request.files['post_file']
     # Check if the file is one of the allowed types/extensions
     if file:
         text = ""
