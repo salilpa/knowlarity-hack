@@ -15,7 +15,7 @@ app = Flask(__name__)
 # This is the path to the upload directory
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 # These are the extension that we are accepting to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = set(['wav'])
+app.config['ALLOWED_EXTENSIONS'] = set(['wav', 'mp3'])
 
 # For a given file, return whether it's an allowed type or not
 def allowed_file(filename):
@@ -46,7 +46,7 @@ def upload():
     # Get the name of the uploaded file
     file = request.files['file']
     # Check if the file is one of the allowed types/extensions
-    if file and allowed_file(file.filename):
+    if file:
         text = speech_to_text(file)
         print 'file name is : ' + file.filename
         print 'text that is recognized is ' + text
